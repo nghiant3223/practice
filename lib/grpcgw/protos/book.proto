@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package book;
+import "google/api/annotations.proto";
+
+option go_package = "protogen/book";
+
+service BookService {
+  rpc CreateBook(CreateBookRequest) returns (CreateBookResponse) {
+    option (google.api.http) = {
+      post: "/v1/books"
+      body: "*"
+    };
+  }
+  rpc GetBooks(GetBooksRequest) returns (GetBooksResponse) {
+    option (google.api.http) = {
+      get: "/v1/books"
+    };
+  }
+}
+
+message Book {
+  int32 id = 1;
+  string name = 2;
+  Author author = 3;
+}
+
+message Author {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+}
+
+message CreateBookRequest {
+  string name = 1;
+  int32 authorId = 2;
+}
+
+message CreateBookResponse {
+  Book book = 1;
+}
+
+message GetBooksRequest {
+
+}
+
+message GetBooksResponse {
+  repeated Book books = 1;
+}
