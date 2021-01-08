@@ -8,22 +8,22 @@ import (
 
 // Given a binary tree, find the longest path between two any node in the tree
 
-// Idea: diameter of a tree is the sum depth of two deepest nodes
+// Idea: diameter of a tree is the sum height of two deepest nodes
 // For left subtree and right subtree, calculate the depth of deepest node and its best diameter
 // To get the best diameter overall, we get max of:
 // 1. left subtree diameter,
 // 2. right subtree diameter,
-// 3. sum depth of deepest node in the left and that 	in the right subtree
+// 3. sum height of deepest node in the left and that in the right subtree
 
-func dfs(root *ds.Node, depth int) (maxDepth int, diameter int) {
-	var leftMaxDepth, leftDiameter, rightMaxDepth, rightDiameter int
+func dfs(root *ds.Node, depth int) (maxHeight int, diameter int) {
+	var leftMaxHeight, leftDiameter, rightMaxHeight, rightDiameter int
 	if root.Left != nil {
-		leftMaxDepth, leftDiameter = dfs(root.Left, depth + 1)
+		leftMaxHeight, leftDiameter = dfs(root.Left, depth+1)
 	}
 	if root.Right != nil {
-		rightMaxDepth, rightDiameter = dfs(root.Right, depth + 1)
+		rightMaxHeight, rightDiameter = dfs(root.Right, depth+1)
 	}
-	return max(leftMaxDepth, rightMaxDepth) + 1, max3(leftDiameter, rightDiameter, leftMaxDepth+rightMaxDepth)
+	return max(leftMaxHeight, rightMaxHeight) + 1, max3(leftDiameter, rightDiameter, leftMaxHeight+rightMaxHeight)
 }
 
 func max3(a, b, c int) int {
