@@ -33,16 +33,31 @@ func reverseLinkedList(root *ds.Node) *ds.Node {
 	return newHead
 }
 
+func reverseLinkedListIterative(root *ds.Node) *ds.Node {
+	var prev *ds.Node
+	cur := root
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = next
+	}
+	root = prev
+	return root
+}
+
 func main() {
 	node1 := &ds.Node{Value: 1}
 	node2 := &ds.Node{Value: 2}
-	//node3 := &ds.Node{Value: 3}
-	//node4 := &ds.Node{Value: 4}
-	//node5 := &ds.Node{Value: 5}
+	node3 := &ds.Node{Value: 3}
+	node4 := &ds.Node{Value: 4}
+	node5 := &ds.Node{Value: 5}
 	node1.Next = node2
-	//node2.Next = node3
-	//node3.Next = node4
-	//node4.Next = node5
-	newHead := reverseLinkedList(node1)
+	node2.Next = node3
+	node3.Next = node4
+	node4.Next = node5
+	//newHead := reverseLinkedList(node1)
+	//util.PrintLinkedList(newHead)
+	newHead := reverseLinkedListIterative(node1)
 	util.PrintLinkedList(newHead)
 }
