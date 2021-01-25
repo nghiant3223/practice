@@ -1,4 +1,4 @@
-package canconstructstring
+package workbreak
 
 import (
 	"testing"
@@ -51,7 +51,8 @@ func TestHappy(t *testing.T) {
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			out := canConstruct(tc.in1, tc.in2)
+			//out := wordBreak(tc.in1, tc.in2)
+			out := wordBreakDP(tc.in1, tc.in2)
 			assert.Equal(t, tc.out, out)
 		})
 	}

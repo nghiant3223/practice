@@ -53,10 +53,7 @@ func main() {
 			log.Printf("Processed a message: %s", d.Body)
 			i, err := strconv.Atoi(string(d.Body))
 			failOnError(err, "cannot parse int")
-			if i %2 == 0 {
-				d.Ack(false)
-				d.Nack(true, true)
-				d.Reject(true)
+			if i%2 == 0 {
 				log.Printf("ack message %v\n", d.Body)
 			} else {
 				log.Printf("do not ack message %v\n", d.Body)

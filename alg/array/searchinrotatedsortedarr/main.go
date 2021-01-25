@@ -1,13 +1,11 @@
 package main
 
-import "fmt"
-
 // You are given an integer array nums sorted in ascending order, and an integer target.
 // Suppose that nums is rotated at some pivot unknown to you beforehand (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
 // If target is found in the array return its index, otherwise, return -1.
 
 func searchInRotatedSortedArray(nums []int, target int) int {
-	v := findValley(nums)
+	v := findCutIndex(nums)
 	findLeft := binarySearch(nums, target, 0, v-1)
 	if findLeft != -1 {
 		return findLeft
@@ -28,29 +26,26 @@ func binarySearch(nums []int, target int, left, right int) int {
 			right = m - 1
 		}
 	}
-	return - 1
+	return -1
 }
 
-func findValley(nums []int) int {
-	left := 0
-	right := len(nums) - 1
-	for left != right {
-		if left+1 == right {
-			if nums[left] > nums[right] {
-				return right
-			}
-			return -1
+func findCutIndex(nums []int) int {
+	if len(nums) < 3 {
+		return -1
+	}
+	l, r := 0, len(nums)-1
+	for l <= r {
+		m := (l + r) / 2
+		if nums[m-1] < nums[m] && nums[m] > nums[m+1] {
+			return nums[m]
 		}
-		mid := (left + right) / 2
-		if nums[left] > nums[mid] {
-			right = mid
-		} else if nums[mid] > nums[right] {
-			left = mid
+		if nums[m] > nums[l] {
+			l = m
 		} else {
-			return -1
+			r = m
 		}
 	}
-	return left
+	return -1
 }
 
 // 1 2 3 4 0
@@ -62,8 +57,3 @@ func findValley(nums []int) int {
 //4 0 1 2 3
 //
 //2 3 4 0 1
-
-func main() {
-	nums := []int{2, 3, 4, 0, 1}
-	fmt.Println(searchInRotatedSortedArray(nums, 1))
-}

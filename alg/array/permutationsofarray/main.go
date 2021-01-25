@@ -3,7 +3,7 @@ package main
 import "log"
 
 func main() {
-	ans := permutationsOfArray([]int{0, 1, 2, 3, 4})
+	ans := permutationsOfArray([]int{0, 1, 2, 3})
 	log.Println(ans)
 }
 

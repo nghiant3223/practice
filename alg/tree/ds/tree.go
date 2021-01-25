@@ -14,6 +14,9 @@ func ParseTree(nums []int) *Node {
 	}
 	for i := 0; 2*i+2 < length; i++ {
 		node := nodes[i]
+		if node == nil {
+			continue
+		}
 		node.Left = nodes[2*i+1]
 		node.Right = nodes[2*i+2]
 	}
